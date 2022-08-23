@@ -1,8 +1,8 @@
 from distutils.core import setup
 
 setup(
-    name='githuSDK',
-    packages=['githuSDK'],
+    name='githubSDK',
+    packages=['githubSDK'],
     version='0.1',
     license='MIT',
     description='Python SDK for GitHub API',
