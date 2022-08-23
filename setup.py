@@ -1,14 +1,14 @@
 from distutils.core import setup
 
 setup(
-    name='githubSDK',
-    packages=['githubSDK'],
+    name='GitHubSDK',
+    packages=['GitHubSDK'],
     version='0.1',
     license='MIT',
     description='Python SDK for GitHub API',
     author='Preethi Kumar',
     author_email='preethi.abkumar@gmail.com',
-    url='https://github.com/arcotbha/githuSDK',
+    url='https://github.com/arcotbha/GitHubSDK',
     download_url='https://github.com/user/reponame/archive/v_01.tar.gz',
     keywords=['GitHub', 'Python', 'sdk'],  # Keywords that define your package best
     install_requires=[
