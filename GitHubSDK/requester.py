@@ -15,7 +15,6 @@ class Requester:
         for arg in kwargs:
             if isinstance(kwargs[arg], dict):
                 kwargs[arg] = self.__deep_merge(getattr(self.session, arg), kwargs[arg])
-                print(kwargs[arg])
             setattr(self.session, arg, kwargs[arg])
 
     def request(self, method, url, **kwargs):

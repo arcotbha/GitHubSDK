@@ -59,7 +59,6 @@ class GitHub:
     def get_user(self, user):
         data = self.__requester.get(f"/users/{user}")
         json_data = data.json()
-        print(json_data)
         return User(self.__requester, attributes=json_data)
 
     def get_authenticated_user(self):

@@ -150,7 +150,6 @@ class Organization(GitHubBase):
         return self._url
 
     def create_project(self, name, body):
-        print(self.url+"/projects")
         post_parameters = dict(
             name=name,
             body=body
