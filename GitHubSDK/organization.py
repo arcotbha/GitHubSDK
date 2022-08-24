@@ -1,4 +1,4 @@
-from base import GitHubBase
+from GitHubSDK.base import GitHubBase
 
 
 class Organization(GitHubBase):
@@ -25,6 +25,9 @@ class Organization(GitHubBase):
 
     def __repr__(self):
         return self.get__repr__({"login": self._login})
+
+    def __repr_html(self):
+        return self.__repr_html()
 
     @property
     def blog(self):

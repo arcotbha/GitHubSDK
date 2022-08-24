@@ -1,13 +1,12 @@
-from authenticated_user import AuthenticatedUser
-from requester import Requester
+from GitHubSDK.requester import Requester
 import requests
 from operator import itemgetter
-from user import User
-from organization import Organization
+from GitHubSDK.user import User
+from GitHubSDK.organization import Organization
 
 
 DEFUALT_BASE_URL = "https://api.github.com"
-DEFUALT_USER_AGENT = "hSDK/Python"
+DEFUALT_USER_AGENT = "gitHubSDK/Python"
 
 class GitHub:
 
@@ -26,6 +25,7 @@ class GitHub:
         self.password = password
         self.user_agent = user_agent
         self.auth = requests.auth.HTTPBasicAuth(login_or_token, password)
+        self.authHeader = {"Authorization": f"token {self.token}"}
 
         params = dict(
             auth=self.auth,
@@ -33,6 +33,7 @@ class GitHub:
         )
         self.__requester = Requester(
             base_url=self.base_url,
+            auth_header=self.authHeader,
             **params
         )
 
@@ -56,8 +57,9 @@ class GitHub:
         )
 
     def get_user(self, user):
-        data = self.__requester.get(f"/users/{user or self.username}")
+        data = self.__requester.get(f"/users/{user}")
         json_data = data.json()
+        print(json_data)
         return User(self.__requester, attributes=json_data)
 
     def get_authenticated_user(self):

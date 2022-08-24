@@ -1,8 +1,6 @@
-from base import GitHubBase
-from repository import Repository
-from userkey import UserKey
-import json
-
+from GitHubSDK.base import GitHubBase
+from GitHubSDK.repository import Repository
+from GitHubSDK.userkey import UserKey
 
 DEFAULT_USER_URL = "/users/"
 
@@ -30,6 +28,9 @@ class User(GitHubBase):
 
     def __repr__(self):
         return self.get__repr__({"login": self._login})
+
+    def __repr_html(self):
+        return self.__repr_html()
 
     @property
     def bio(self):

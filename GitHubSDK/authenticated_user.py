@@ -1,4 +1,4 @@
-from base import GitHubBase
+from GitHubSDK.base import GitHubBase
 
 
 class AuthenticatedUser(GitHubBase):

@@ -1,4 +1,6 @@
-from base import GitHubBase
+import json
+
+from GitHubSDK.base import GitHubBase
 
 
 class Repository(GitHubBase):
@@ -19,9 +21,13 @@ class Repository(GitHubBase):
         self._owner = attributes['owner']
         self._visibility = attributes['visibility']
         self._updated_at = attributes['updated_at']
+        self._url = attributes['url']
 
     def __repr__(self):
         return self.get__repr__({"full_name": self.full_name})
+
+    def __repr_html(self):
+        return self.__repr_html()
 
     @property
     def allow_forking(self):
@@ -87,6 +93,13 @@ class Repository(GitHubBase):
         return self._git_url
 
     @property
+    def url(self):
+        """
+        :type: bool
+        """
+        return self._url
+
+    @property
     def id(self):
         """
         :type: integer
@@ -129,13 +142,6 @@ class Repository(GitHubBase):
         return self._updated_at
 
     @property
-    def url(self):
-        """
-        :type: string
-        """
-        return self._url
-
-    @property
     def visibility(self):
         """
          :type: string
@@ -143,8 +149,44 @@ class Repository(GitHubBase):
         return self._visibility
 
     def create_project(self, name, body):
-        post_parameters = dict(
-            name=name,
-            body=body
+        post_parameters = {
+            "name": name,
+            "body": body
+        }
+        params = dict(
+            data=json.dumps(post_parameters)
         )
-        self.requester.request("post", f"{self.url}/projects", **post_parameters)
+        self.requester.request("post", f"{self.url}/projects", **params)
+
+    def create_file(
+        self,
+        path,
+        message,
+        content,
+        branch=None,
+        committer=None,
+        author=None,
+    ):
+        put_parameters = {
+            "message": message,
+            "content": content,
+        }
+
+        if branch:
+            put_parameters["branch"] = branch
+        if author:
+            put_parameters["author"] = author
+        if committer:
+            put_parameters["committer"] = committer
+        params = dict(
+            data=json.dumps(put_parameters)
+        )
+
+        data = self.requester.request(
+            "PUT",
+            f"{self.url}/contents/{path}",
+            **params
+        )
+
+        return data
+

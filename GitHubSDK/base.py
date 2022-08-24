@@ -1,5 +1,5 @@
 from operator import itemgetter
-from requester import Requester
+import html
 
 DEFUALT_BASE_URL = "https://api.github.com"
 
@@ -35,6 +35,12 @@ class GitHubBase:
             class_name=self.__class__.__name__,
             params=", ".join(list(format_params(params))),
         )
+
+    def _repr_html_(self):
+        try:
+            return self.to_html()
+        except AttributeError:
+            return f'<pre>{html.escape(str(self))}</pre>'
 
     def build_url(self, *args, **kwargs):
         """Build a new API url from scratch."""

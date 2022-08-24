@@ -1,4 +1,4 @@
-from base import GitHubBase
+from GitHubSDK.base import GitHubBase
 
 
 class UserKey(GitHubBase):
@@ -9,6 +9,9 @@ class UserKey(GitHubBase):
 
     def __repr__(self):
         return self.get__repr__({"id": self._id})
+
+    def __repr_html(self):
+        return self.__repr_html()
 
     @property
     def id(self):

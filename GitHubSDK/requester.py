@@ -5,10 +5,12 @@ class Requester:
     def __init__(
             self,
             base_url,
+            auth_header,
             **kwargs
     ):
 
         self.base_url = base_url
+        self.auth_header = auth_header
         self.session = requests.Session()
         for arg in kwargs:
             if isinstance(kwargs[arg], dict):
@@ -17,7 +19,7 @@ class Requester:
             setattr(self.session, arg, kwargs[arg])
 
     def request(self, method, url, **kwargs):
-        return self.session.request(method, url, **kwargs)
+        return self.session.request(method, url, headers=self.auth_header, **kwargs)
 
     def head(self, url, **kwargs):
         return self.session.head(self.base_url+url, **kwargs)
@@ -26,7 +28,6 @@ class Requester:
         return self.session.get(self.base_url+url, **kwargs)
 
     def post(self, url, **kwargs):
-        print(self.base_url+url)
         return self.session.post(self.base_url+url, **kwargs)
 
     def put(self, url, **kwargs):
