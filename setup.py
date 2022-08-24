@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(
-    name='PyGitHubSDK',
+    name='GitHubSDK',
     packages=['GitHubSDK'],
     version='0.1',
     license='MIT',
